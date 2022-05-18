@@ -12,6 +12,8 @@
 #include "string"
 #include <iostream>
 #include <vector>
+#include<bits/stdc++.h>
+
 
 using namespace std;
 
@@ -24,14 +26,17 @@ public:
     ~OrgChart();
 
 
-    OrgChart add_root(string s);
+    OrgChart& add_root(string s);
 
-    OrgChart add_sub(string s, string str);
+    OrgChart& add_sub(string s, string str);
+    void print();
 
-    friend ostream& operator<< (ostream& output, const OrgChart& orgChart);
+    friend ostream& operator<< (ostream& output,  OrgChart& orgChart);
 
     struct Node {
+        public:
         string m_value;
+        // bool bo;
         Node *m_next;
 
         Node(string &v, Node *n)
@@ -40,7 +45,10 @@ public:
     };
 
     Node *m_first;
-    int * size;
+    Node* ite;
+    int  size=0;
+    // vector<list<Node*>> adj;  
+
 
     class iterator {
 
@@ -98,13 +106,51 @@ public:
 
     iterator end() {
         // return nullptr;
+        ite=m_first;
+        while (ite->m_next!=nullptr) {
+		    ite=ite->m_next;
+		    // cout << val;
+	    }
+        // ite->m_next=new Node(str,nullptr);
+        // return *this;
         return iterator{nullptr};
     }
 
-    iterator begin_level_order() {
-        // return &(m_first->m_value);
-        return iterator{m_first};
-    }
+
+    // iterator begin_level_order() {
+    //     // return &(m_first->m_value);
+    //     string s=this->m_first->m_value;
+    //     vector<bool> visited;
+    //     visited.resize(size,false);
+    
+    //     // Create a queue for BFS
+    //     list<string> queue;
+    
+    //     // Mark the current node as visited and enqueue it
+    //     visited.at(s) = true;
+    //     queue.push_back(s);
+    
+    //     while(!queue.empty())
+    //     {
+    //         // Dequeue the oldest vertex from queue and print it
+    //         s = queue.front();
+    //         cout << s << " ";
+    //         //removes the oldest vertex
+    //         queue.pop_front();
+    
+    //         // Get all adjacent vertices of the dequeued
+    //         // vertex s. If a adjacent has not been visited,
+    //         // then mark it visited and enqueue it
+    //         for (auto adjecent: adj[s])
+    //         {
+    //             if (!visited[adjecent])
+    //             {
+    //                 visited[adjecent] = true;
+    //                 queue.push_back(adjecent);
+    //             }
+    //         }
+    //         return iterator{m_first};
+    // }
 
     iterator end_level_order() {
         // return nullptr;
@@ -131,6 +177,61 @@ public:
         return iterator{nullptr};
     }
 
+    // prints BFS traversal from a given source s
+//     iterator& BFS(Node* s)
+// {
+//     // Mark all the vertices as not visited
+//     vector<Node*> visited;
+//     visited.resize(size,false);
+//     iterator{s};//temp;// temp;
+
+//     // Create a queue for BFS
+//     list<Node*> queue;
+ 
+//     // Mark the current node as visited and enqueue it
+//     visited[s] = true;
+//     s->bo=true;
+
+//     queue.push_back(s);
+ 
+//     while(!queue.empty())
+//     {
+//         // Dequeue the oldest vertex from queue and print it
+//         s = queue.front();
+//         cout << s << " ";
+//         //removes the oldest vertex
+//         queue.pop_front();
+ 
+//         // Get all adjacent vertices of the dequeued
+//         // vertex s. If a adjacent has not been visited,
+//         // then mark it visited and enqueue it
+//         for (auto adjecent: adj[s])
+//         {
+//             if (adjecent.bo)
+//             {
+//                 visited[adjecent] = true;
+//                 queue.push_back(adjecent);
+//                 iterator.pointer_to_current_node=iterator.pointer_to_current_node-<m_next;
+//             }
+//         }
+//     }
+//     return iterator;
+// }
+
+// void Graph::DFS(int v)
+// {
+//     // Mark the current node as visited and
+//     // print it
+//     visited[v] = true;
+//     cout << v << " ";
+ 
+//     // Recur for all the vertices adjacent
+//     // to this vertex
+//     list<int>::iterator i;
+//     for (i = adj[v].begin(); i != adj[v].end(); ++i)
+//         if (!visited[*i])
+//             DFS(*i);
+// }
 };
 
 }
