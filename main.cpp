@@ -1,64 +1,47 @@
-#include <string>
-#include <iostream>
-#include <vector>
-#include<bits/stdc++.h>
 
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <stdexcept>
 using namespace std;
+
 #include "sources/OrgChart.cpp"
 using namespace ariel;
 
-int main(){
-    OrgChart org;
-    org.add_root("Haim");
-    org.add_sub("Haim","Willinger");
-    org.add_sub("Willinger","King");
-    org.add_sub("King","Shlomo");
+int main() {
+  OrgChart organization;
+  organization.add_root("CEO")
+      .add_sub("CEO", "CTO")         // Now the CTO is subordinate to the CEO
+      .add_sub("CEO", "CFO")         // Now the CFO is subordinate to the CEO
+      .add_sub("CEO", "COO")         // Now the COO is subordinate to the CEO
+      .add_sub("CTO", "VP_SW")      // Now the VP Software is subordinate to the CTO
+      .add_sub("COO", "VP_BI");     
 
+  cout << organization << endl; 
 
-    cout<<org.size<<endl;
-    cout<<org.m_first->m_value <<endl;
-    cout<<org.m_first->m_next->m_value<<"\n";
-    cout<<org.m_first->m_next->m_next->m_value<<"\n";
-    cout<<org.m_first->m_next->m_next->m_next->m_value<<"\n";
+    cout << "level order: " << endl;
+    for (auto it = organization.begin_level_order(); it != organization.end_level_order(); ++it) {
+        cout << (*it) << " " ;
+    } // should print: CEO CTO CFO COO VP_SW VP_BI
+    cout << endl;
 
+    cout << "reverse level order: " << endl;
+    for (auto it = organization.begin_reverse_order(); it != organization.reverse_order(); ++it) {
+        cout << (*it) << " " ;
+    } // should print: VP_SW VP_BI CTO CFO COO CEO
+    cout << endl;
 
-    auto e = org.end();
-	for (
-		auto it = org.begin(); 
-		// Stk<string>::iterator it = strStk.begin(); 
-		it!=e; 
-		++it
-		)
-	{
-		const string& val = *it;
-		cout <<"size:"<< it->size() << "\n";
-		cout <<"word:"<< *it<<"\n";
-	}
+    cout << "preorder: " << endl;
+    for (auto it=organization.begin_preorder(); it!=organization.end_preorder(); ++it) {
+        cout << (*it) << " " ;
+    }  // should print: CEO CTO VP_SW CFO COO VP_BI
+    cout << endl;
 
-    // org.print;
-    cout<<org<<endl;
-
-    // struct Node n1,n2;
-    // org.m_first->m_next=n2;
-    // cout<<"Hi"<<endl;
-    // struct Node n1;
-    // org.m_first= Node("Haim",nullptr) n1;
-    // Node("Willinger",&n1);
-
-//     OrgChart org;
-//     org.add_root("1");
-//     org.add_sub("1","2");
-
-//     for (Node* val: org) {
-//     cout << val.m_value << " ";
-//     cout << org.size;
-// }
-//     vector<string> vec= (org.BFS());
-// 	for (const string& val: strStk) {
-// 		cout << val.size() << " ";
-// 		cout << val;
-// 	}
-
-
-    return 0;
+    cout << "level order sizes: " << endl;
+    // demonstrate the arrow operator:
+    for (auto it = organization.begin_level_order(); it != organization.end_level_order(); ++it) {
+        cout << it->size() << " " ;
+    } // should print: 3 3 3 3 5 5
+    cout << endl;
 }

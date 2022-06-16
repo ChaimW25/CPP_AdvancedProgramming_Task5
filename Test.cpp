@@ -1,161 +1,101 @@
 #include "doctest.h"
-#include "OrgChart.hpp"
-
+#include <iostream>
+#include "sources/OrgChart.hpp"
 #include <string>
-#include <algorithm>
-using namespace std;
-
 #include <vector>
+using namespace std;
+using namespace ariel;
 
 
-namespace ariel{
-
-TEST_CASE("Good input") {
-    OrgChart org;
-    org.add_root("1");
-
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
-    CHECK_NOTHROW(org.add_sub("HAIM", "KING"));
+TEST_CASE("good input"){
+    OrgChart organization1;
 
 
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
-    // CHECK_NOTHROW(a.add_sub("HAIM", "KING"));
+    SUBCASE("func -> add root"){
+
+        CHECK_NOTHROW(organization1.add_root("CEO"));
+    }
 
 
+    /*
+    //        CEO
+    //        |--------|--------|
+    //        CTO      CFO      COO
+    //        |                 |
+    //        VP_SW             VP_BI
+    //  */
+
+    SUBCASE("func -> add sub"){
+    CHECK_NOTHROW(organization1.add_root("CEO")); // just for start a root
+    CHECK_NOTHROW(organization1.add_sub("CEO", "CTO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "CFO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "COO"));
+    CHECK_NOTHROW(organization1.add_sub("CTO", "VP_SW"));
+    CHECK_NOTHROW(organization1.add_sub("COO", "VP_BI"));
+    }
 
 
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
-    // CHECK(org.m_first->m_value=="1");
+    SUBCASE("func -> level order iterator"){
+    CHECK_NOTHROW(organization1.add_root("CEO")); // just for start a root
+    CHECK_NOTHROW(organization1.add_sub("CEO", "CTO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "CFO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "COO"));
+    CHECK_NOTHROW(organization1.add_sub("CTO", "VP_SW"));
+    CHECK_NOTHROW(organization1.add_sub("COO", "VP_BI"));
+    string factory1;
+    for (auto i = organization1.begin_level_order(); i != organization1.end_level_order(); ++i)
+    {
+    factory1 += (*i);
+    factory1 += " ";
+    }
+    CHECK(factory1 == "CEO CTO CFO COO VP_SW VP_BI ");
+    }
+
+
+    SUBCASE("func -> reverse order iterator"){
+    CHECK_NOTHROW(organization1.add_root("CEO")); // just for start a root
+    CHECK_NOTHROW(organization1.add_sub("CEO", "CTO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "CFO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "COO"));
+    CHECK_NOTHROW(organization1.add_sub("CTO", "VP_SW"));
+    CHECK_NOTHROW(organization1.add_sub("COO", "VP_BI"));
+    string factory2;
+    for (auto i = organization1.begin_reverse_order(); i != organization1.reverse_order(); ++i)
+    {
+    factory2 += (*i);
+    factory2 += " ";
+    }
+    CHECK(factory2 == "VP_SW VP_BI CTO CFO COO CEO ");
+    }
+
+
+    SUBCASE("func -> preorder iterator"){
+    CHECK_NOTHROW(organization1.add_root("CEO")); // just for start a root
+    CHECK_NOTHROW(organization1.add_sub("CEO", "CTO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "CFO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "COO"));
+    CHECK_NOTHROW(organization1.add_sub("CTO", "VP_SW"));
+    CHECK_NOTHROW(organization1.add_sub("COO", "VP_BI"));
+    string factory3;
+    for (auto i = organization1.begin_preorder(); i != organization1.end_preorder(); ++i)
+    {
+    factory3 += (*i);
+    factory3 += " ";
+    }
+    CHECK(factory3 == "CEO CTO VP_SW CFO COO VP_BI ");
+    }
 
 }
+
+TEST_CASE("bad input func -> add_sub"){
+    OrgChart organization1;
+    CHECK_NOTHROW(organization1.add_root("CEO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "CTO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "CFO"));
+    CHECK_NOTHROW(organization1.add_sub("CEO", "COO"));
+    CHECK_NOTHROW(organization1.add_sub("CTO", "VP_SW"));
+    CHECK_NOTHROW(organization1.add_sub("COO", "VP_BI"));
+    CHECK_THROWS(organization1.add_sub("COO", "nothing"));
+    CHECK_THROWS(organization1.add_sub("he", "nothing"));
+    CHECK_THROWS(organization1.add_sub("she", "nothing"));
 }
-
-// TEST_CASE("Good input") {
-
-//     OrgChart org;
-//     org.add_root("1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-//     CHECK(org.m_first->m_value=="1");
-
-//     // CHECK(org.end_level_order=="1")
-//     // CHECK(org.size,1);
-// }
-// //     org.add_sub("1","2");
-// //     CHECK(org.reverse_order=="1")
-// //     CHECK(org.end_level_order=="2")
-// //     CHECK(org.size,2);
-
-// //     org.add_sub("2","3");
-// //     CHECK(org.size,3);
-// //     CHECK(org.end_level_order=="3")
-// //     CHECK(org.reverse_order=="1")
-
-// //     org.add_sub("3","4");
-// //     CHECK(org.end_level_order=="4")
-// //     CHECK(org.reverse_order=="1")
-// //     CHECK(org.size,4);
-
-// //     org.add_sub("4","5");
-// //     CHECK(org.end_level_order=="5")
-// //     CHECK(org.reverse_order=="1")
-// //     CHECK(org.size,5);
-
-// // }
-
-// // TEST_CASE("Bad input") {
-
-// //     OrgChart org;
-// //     org.add_root("1");
-// //     CHECK_NOTHROW(org.add_root("10"));
-// //     ASSERT_NE(org.reverse_order, "2");
-
-// //     org.add_sub("1","2");
-// //     CHECK_NOTHROW(org.add_root("11"));
-// //     ASSERT_NE(org.reverse_order, "3");
-
-// //     org.add_sub("2","3");
-// //     CHECK_NOTHROW(org.add_root("12"));
-// //     ASSERT_NE(org.reverse_order, "4");
-
-// //     org.add_sub("3","4");
-// //     CHECK_NOTHROW(org.add_root("13"));
-// //     ASSERT_NE(org.reverse_order, "5");
-
-// //     org.add_sub("4","5");
-// //     CHECK_NOTHROW(org.add_root("14"));
-// //     ASSERT_NE(org.reverse_order, "6");
-
-
-// // }
-
-// }
-
