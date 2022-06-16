@@ -23,10 +23,13 @@ namespace ariel
     {
         public:
             vector<string> levelVec;
+            vector<string> printStr;
             vector<string> printVec;
+            vector<Node> nodeVec;
             vector<string> reverseVec;
             vector<string> preVec;
             Node rt;
+            Node* nodeP;
             OrgChart();
             OrgChart(OrgChart& org) = default;
             ~OrgChart();
