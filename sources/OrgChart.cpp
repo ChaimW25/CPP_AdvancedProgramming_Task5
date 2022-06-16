@@ -33,7 +33,9 @@ namespace ariel
         }
                 string str= init("");
         if (_find(this->rt,"", dd, ch)==false){
+            int tmp=0;
             throw invalid_argument("empty");
+            str= init("");
         }
         return *this;
     }
@@ -108,6 +110,7 @@ namespace ariel
         while ( ib >= 0){
             str= init("");
             string sec = nodeQueue.at((uint)ib)->value;
+            str= init("");
             reverseVec.push_back(sec);
             sec= init("");
             ib--;
@@ -131,63 +134,81 @@ namespace ariel
         }
         string str= init("");
         this->levelVec.clear();
+        str= init("");
         levelQueue(rt,"");
+        str= init("");
         return &this->levelVec.at(0);
     }
     string *OrgChart::end_level_order(){
+        string str= init("");
         if (rt.value=="")
         {
+            str= init("");
             throw invalid_argument("empty!");
         }
-        string str= init("");
+         str= init("");
         uint place=this->levelVec.size();
+        str= init("");
         return &this->levelVec[place];
     }
     string *OrgChart::begin(){
+        string str= init("");
         return begin_level_order();
     }
     string *OrgChart::end(){
+        string str= init("");
         return end_level_order();
     }
     string *OrgChart::begin_reverse_order(){
         string str= init("");
         if (rt.value=="")
         {
+            str= init("");
             throw invalid_argument("empty!");
         }
          str= init("");
         this->reverseVec.clear();
+        str= init("");
         reverseQueue(rt,"");
+        str= init("");
         return &reverseVec.at(0);
     }
     string *OrgChart::reverse_order(){
+        string str= init("");
         if (rt.value=="")
         {
+            str= init("");
             throw invalid_argument("empty!");
         }
-        string str= init("");
+         str= init("");
         uint place =reverseVec.size();
+        str= init("");
         return &this->reverseVec[place];
     }
     string *OrgChart::begin_preorder(){
         string str= init("");
-        if (rt.value.empty())
+        if (rt.value=="")
         {
+            str= init("");
             throw invalid_argument("empty!");
         }
         str= init("");
         this->preVec.clear();
          str= init("");
         preQueue(rt,"");
+        str= init("");
         return &this->preVec.at(0);
     }
     string *OrgChart::end_preorder(){
-        if (rt.value.empty())
+        string str= init("");
+        if (rt.value=="")
         {
+            str= init("");
             throw invalid_argument("empty!");
         }
-        string str= init("");
+         str= init("");
         uint place =preVec.size();
+        str= init("");
         return &this->preVec[place];
     }
     string *OrgChart::begin_print_level_order(){
@@ -198,6 +219,7 @@ namespace ariel
     string *OrgChart::end_print_level_order(){
         string str= init("");
         uint place =printVec.size();
+        str= init("");
         return &this->printVec[place];
     }
     ostream &operator<<(ostream &output, OrgChart &rt){
